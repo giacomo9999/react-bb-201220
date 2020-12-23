@@ -27,7 +27,7 @@ const buildControls = (props) => {
         className={classes.OrderButton}
         disabled={!props.purchaseable}
         onClick={() => {
-          console.log("purchased...");
+          props.checkOut();
         }}
       >
         PLACE ORDER
