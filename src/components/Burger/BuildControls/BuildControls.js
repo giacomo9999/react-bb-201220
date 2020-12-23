@@ -19,7 +19,21 @@ const buildControls = (props) => {
       disabled={props.disabled[elem.type]}
     />
   ));
-  return <div className={classes.BuildControls}>{controlArray}</div>;
+  return (
+    <div className={classes.BuildControls}>
+      <h1>{`Total Price: $ ${props.price.toFixed(2)}`}</h1>
+      {controlArray}
+      <button
+        className={classes.OrderButton}
+        disabled={!props.purchaseable}
+        onClick={() => {
+          console.log("purchased...");
+        }}
+      >
+        PLACE ORDER
+      </button>
+    </div>
+  );
 };
 
 export default buildControls;
