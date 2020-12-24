@@ -26,6 +26,10 @@ class BurgerBuilder extends Component {
     });
   };
 
+  continuePurchaseHandler = () => {
+    alert("YOU CONTINUE!");
+  };
+
   updatePurchaseState = (ingredArray) => {
     let purchaseable = false;
     for (let i in ingredArray) {
@@ -73,7 +77,12 @@ class BurgerBuilder extends Component {
           show={this.state.checkingOut}
           clicked={this.cancelPurchaseHandler}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            totalPrice={this.state.totalPrice}
+            ingredients={this.state.ingredients}
+            cancelClick={this.cancelPurchaseHandler}
+            continueClick={this.continuePurchaseHandler}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
