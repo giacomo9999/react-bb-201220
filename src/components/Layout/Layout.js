@@ -2,6 +2,7 @@ import React from "react";
 import Aux from "../../hoc/Aux";
 import Toolbar from "../Navigation/Toolbar";
 import classes from "./Layout.module.css";
+import "./TypeStyles.css"
 
 const layout = (props) => (
   <Aux>
