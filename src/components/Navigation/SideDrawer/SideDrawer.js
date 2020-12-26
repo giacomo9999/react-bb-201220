@@ -6,19 +6,27 @@ import Aux from "../../../hoc/Aux";
 import classes from "./SideDrawer.module.css";
 
 const sideDrawer = (props) => {
-  return (
-    <Aux>
-      <Backdrop show={props.show} clicked={props.toggleDrawer} />
-      <div className={classes.SideDrawer}>
-        <div className={classes.Logo}>
-          <Logo />
+  let attachedClasses = [classes.SideDrawer, classes.Close];
+  if (props.show) {
+    attachedClasses = [classes.SideDrawer, classes.Open];
+  }
+  console.log("Attached classes:", attachedClasses);
+  const output =
+    window.innerWidth < 501 ? (
+      <Aux>
+        <Backdrop show={props.show} clicked={props.toggleDrawer} />
+        <div className={attachedClasses.join(" ")}>
+          <div className={classes.Logo}>
+            <Logo />
+          </div>
+          <nav>
+            <NavigationItems />
+          </nav>
         </div>
-        <nav>
-          <NavigationItems />
-        </nav>
-      </div>
-    </Aux>
-  );
+      </Aux>
+    ) : null;
+
+  return output;
 };
 
 export default sideDrawer;
