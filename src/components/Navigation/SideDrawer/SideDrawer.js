@@ -10,7 +10,6 @@ const sideDrawer = (props) => {
   if (props.show) {
     attachedClasses = [classes.SideDrawer, classes.Open];
   }
-  console.log("Attached classes:", attachedClasses);
   const output =
     window.innerWidth < 501 ? (
       <Aux>
