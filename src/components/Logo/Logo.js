@@ -4,7 +4,7 @@ import classes from "./Logo.module.css";
 
 const logo = (props) => (
   <div className={classes.Logo}>
-    <img src={burgerLogo} alt="myBurger" />
+    <img src={burgerLogo} alt="myBurger" onClick={props.clicked} />
   </div>
 );
 

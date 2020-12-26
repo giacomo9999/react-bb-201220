@@ -8,7 +8,7 @@ import classes from "./SideDrawer.module.css";
 const sideDrawer = (props) => {
   return (
     <Aux>
-      <Backdrop />
+      <Backdrop show={props.show} clicked={props.toggleDrawer} />
       <div className={classes.SideDrawer}>
         <div className={classes.Logo}>
           <Logo />
