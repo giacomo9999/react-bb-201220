@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from "../../../src/hoc/withErrorHandler/withErrorHandler";
+
 import axios from "../../axios-orders";
 
 const INGREDIENT_PRICES = { salad: 1, bacon: 1.5, meat: 2, cheese: 1.5 };
@@ -35,7 +38,7 @@ class BurgerBuilder extends Component {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
       customer: {
-        name: "Gern Blanston",
+        name: "Honoria Dedlock",
         address: {
           street: "123 Main St",
           zipCode: 12345,
@@ -131,4 +134,4 @@ class BurgerBuilder extends Component {
     );
   }
 }
-export default BurgerBuilder;
+export default withErrorHandler(BurgerBuilder, axios);
