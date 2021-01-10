@@ -51,6 +51,7 @@ class BurgerBuilder extends Component {
     const order = {
       ingredients: this.state.ingredients,
       price: this.state.totalPrice,
+      orderTime: Date.now(),
       customer: {
         name: "Honoria Dedlock",
         address: {
