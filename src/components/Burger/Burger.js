@@ -16,7 +16,13 @@ const burger = (props) => {
   if (transformedIngredients.length === 0) {
     transformedIngredients = <p>Please start adding ingredients</p>;
   }
-  return (
+  return props.isSmall ? (
+    <div className={classes.SmallBurger}>
+      <BurgerIngredient type="bread-top" />
+      {transformedIngredients}
+      <BurgerIngredient type="bread-bottom" />
+    </div>
+  ) : (
     <div className={classes.Burger}>
       <BurgerIngredient type="bread-top" />
       {transformedIngredients}
