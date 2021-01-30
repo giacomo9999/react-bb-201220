@@ -12,7 +12,6 @@ const checkoutSummary = (props) => {
         className="Enclosing"
         style={{
           width: "350px",
-          // height: "350px",
           margin: "auto",
         }}
       >
