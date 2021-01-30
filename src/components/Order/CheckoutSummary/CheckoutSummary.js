@@ -8,7 +8,14 @@ const checkoutSummary = (props) => {
   return (
     <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes good!</h1>
-      <div style={{ width: "300px", height: "300px", margin: "auto" }}>
+      <div
+        className="Enclosing"
+        style={{
+          width: "350px",
+          // height: "350px",
+          margin: "auto",
+        }}
+      >
         <Burger ingredients={props.ingredients} isSmall={true} />
       </div>
       <Button
