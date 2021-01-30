@@ -32,7 +32,7 @@
 .SmallBurger {
   width: 100%;
   margin: auto;
-  height: 250px;
+  height: 100%;
   overflow: scroll;
   text-align: center;
   font-weight: bold;
