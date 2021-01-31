@@ -18,6 +18,8 @@
 }
 
 .Logo {
+  position: absolute;
+  left: 10px;
   height: 90%;
 }
 
