@@ -17,20 +17,10 @@ const checkoutSummary = (props) => {
       >
         <Burger ingredients={props.ingredients} isSmall={true} />
       </div>
-      <Button
-        btnType="Danger"
-        clicked={() => {
-          console.log("Button clicked");
-        }}
-      >
+      <Button btnType="Danger" clicked={props.checkoutCancelled}>
         CANCEL
       </Button>
-      <Button
-        btnType="Success"
-        clicked={() => {
-          console.log("Button clicked");
-        }}
-      >
+      <Button btnType="Success" clicked={props.checkoutContinued}>
         CONTINUE
       </Button>
     </div>
