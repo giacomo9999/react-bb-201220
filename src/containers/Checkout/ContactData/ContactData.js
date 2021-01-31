@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import Button from "../../../components/UI/Button/Button";
+import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 
 import axios from "../../../axios-orders";
 
 class ContactData extends Component {
   state = {
-    name: "",
-    email: "",
-    address: { street: "", postalCode: "" },
+    name: "Gern Blanston",
+    email: "gern@blanston.com",
+    address: { street: "123 Main St", postalCode: "12345" },
     loading: false,
   };
 
-  orderHandler = () => {
-    console.log(this.props);
+  orderHandler = (e) => {
+    e.preventDefault();
+    // console.log(this.props);
     this.setState({ loading: true });
     const order = {
       ingredients: this.props.ingredients,
@@ -33,19 +35,19 @@ class ContactData extends Component {
     axios
       .post("/orders.json", order)
       .then((response) => {
-        this.setState({ loading: false, checkingOut: false });
+        this.setState({ loading: false });
+        this.props.history.push("/");
         console.log(response);
       })
       .catch((err) => {
-        this.setState({ loading: false, checkingOut: false });
+        this.setState({ loading: false });
         console.log(err);
       });
   };
 
   render() {
-    return (
-      <div className={classes.ContactData}>
-        <h4>Enter your contact data</h4>
+    let form = (
+      <form>
         <input
           className={classes.Input}
           type="text"
@@ -73,6 +75,15 @@ class ContactData extends Component {
         <Button btnType="Success" clicked={this.orderHandler}>
           Place Order
         </Button>
+      </form>
+    );
+    if (this.state.loading) {
+      form = <Spinner />;
+    }
+    return (
+      <div className={classes.ContactData}>
+        <h4>Enter your contact data</h4>
+        {form}
       </div>
     );
   }
