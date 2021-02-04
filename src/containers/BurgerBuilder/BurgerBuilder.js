@@ -94,7 +94,7 @@ class BurgerBuilder extends Component {
       adjIngredients[type] -= 1;
       adjPrice -= INGREDIENT_PRICES[type];
       this.setState({ ingredients: adjIngredients, totalPrice: adjPrice });
-      console.log("Removing ingredient...", type, this.state);
+      // console.log("Removing ingredient...", type, this.state);
       this.updatePurchaseState(adjIngredients);
     }
   };
