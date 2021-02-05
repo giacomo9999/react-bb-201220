@@ -9,30 +9,58 @@ import axios from "../../../axios-orders";
 
 class ContactData extends Component {
   state = {
-    name: "Gern Blanston",
-    email: "gern@blanston.com",
-    address: { street: "123 Main St", postalCode: "12345" },
+    orderForm: {
+      name: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Your Name" },
+        value: "",
+      },
+      street: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Street" },
+        value: "",
+      },
+      zipCode: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Zip Code" },
+        value: "",
+      },
+      country: {
+        elementType: "input",
+        elementConfig: { type: "text", placeholder: "Country" },
+        value: "",
+      },
+      email: {
+        elementType: "input",
+        elementConfig: { type: "email", placeholder: "E-mail" },
+        value: "",
+      },
+      deliveryMethod: {
+        elementType: "select",
+        elementConfig: {
+          options: [
+            { value: "fastest", displayValue: "Fastest" },
+            { value: "cheapest", displayValue: "Cheapest" },
+          ],
+        },
+        value: "",
+      },
+    },
     loading: false,
   };
 
   orderHandler = (e) => {
     e.preventDefault();
-    // console.log(this.props);
     this.setState({ loading: true });
+    const formData = {};
+    for (let formElemId in this.state.orderForm) {
+      formData[formElemId] = this.state.orderForm[formElemId].value;
+    }
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
       orderTime: Date.now(),
-      customer: {
-        name: this.state.name,
-        address: {
-          street: this.state.address.street,
-          zipCode: this.state.address.postalCode,
-          country: "Utopia",
-        },
-        email: this.state.email,
-        deliveryMethod: "fastest",
-      },
+      orderData: formData,
     };
     axios
       .post("/orders.json", order)
@@ -47,33 +75,32 @@ class ContactData extends Component {
       });
   };
 
+  handleChange = (e, inputId) => {
+    e.preventDefault();
+    const updatedOrderForm = this.state.orderForm;
+    const updatedFormElem = { ...updatedOrderForm[inputId] };
+    updatedFormElem.value = e.target.value;
+    updatedOrderForm[inputId] = updatedFormElem;
+    this.setState({ orderForm: updatedOrderForm });
+    console.log("Handling change...", inputId, e.target.value);
+  };
+
   render() {
+    const formElementsArray = [];
+    for (let key in this.state.orderForm) {
+      formElementsArray.push({ id: key, config: this.state.orderForm[key] });
+    }
     let form = (
-      <form>
-        <Input
-          inputtype="input"
-          type="text"
-          name="name"
-          placeholder="Your Name"
-        />
-        <Input
-          inputtype="input"
-          type="email"
-          name="email"
-          placeholder="E-Mail"
-        />
-        <Input
-          inputtype="input"
-          type="text"
-          name="street"
-          placeholder="Street"
-        />
-        <Input
-          inputtype="input"
-          type="text"
-          name="postalcode"
-          placeholder="Postal Code"
-        />
+      <form onSubmit={this.orderHandler}>
+        {formElementsArray.map((elem) => (
+          <Input
+            changed={(e) => this.handleChange(e, elem.id)}
+            key={elem.id}
+            elementType={elem.config.elementType}
+            elementConfig={elem.config.elementConfig}
+            value={elem.config.value}
+          />
+        ))}
         <Button btnType="Success" clicked={this.orderHandler}>
           Place Order
         </Button>
