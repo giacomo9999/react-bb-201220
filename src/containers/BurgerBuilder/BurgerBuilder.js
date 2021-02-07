@@ -79,8 +79,7 @@ class BurgerBuilder extends Component {
   };
 
   removeIngredientHandler = (type) => {
-    let adjIngredients = this.props.ingredients;
-    if (adjIngredients[type] <= 0) {
+    if (this.props.ingredients[type] <= 0) {
       console.log("Nothing to remove");
     } else {
       this.props.onRemoveIngredient(type);
