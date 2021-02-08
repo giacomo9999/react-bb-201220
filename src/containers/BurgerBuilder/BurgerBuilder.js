@@ -15,7 +15,6 @@ import axios from "../../axios-orders";
 
 class BurgerBuilder extends Component {
   state = {
-    purchaseable: false,
     checkingOut: false,
     loading: false,
     error: false,
@@ -70,21 +69,7 @@ class BurgerBuilder extends Component {
         purchaseable = true;
       }
     }
-    this.setState({ purchaseable: purchaseable });
-  };
-
-  addIngredientHandler = (type) => {
-    this.props.onAddIngredient(type);
-    this.updatePurchaseState(this.props.ingredients);
-  };
-
-  removeIngredientHandler = (type) => {
-    if (this.props.ingredients[type] <= 0) {
-      console.log("Nothing to remove");
-    } else {
-      this.props.onRemoveIngredient(type);
-      this.updatePurchaseState(this.props.ingredients);
-    }
+    return purchaseable;
   };
 
   render() {
@@ -105,11 +90,11 @@ class BurgerBuilder extends Component {
         <Aux>
           <Burger ingredients={this.props.ingredients} />
           <BuildControls
-            addIngredient={this.addIngredientHandler}
-            removeIngredient={this.removeIngredientHandler}
+            addIngredient={this.props.onAddIngredient}
+            removeIngredient={this.props.onRmoveIngredient}
             disabled={disabledInfo}
             price={this.props.totalPrice}
-            purchaseable={this.state.purchaseable}
+            purchaseable={this.updatePurchaseState(this.props.ingredients)}
             checkOut={this.checkOut}
           />
         </Aux>
