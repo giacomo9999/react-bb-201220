@@ -10,7 +10,6 @@ const INGREDIENT_PRICES = { salad: 1, bacon: 1.5, meat: 2, cheese: 1.5 };
 const bBreducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
-      console.log("Adding ingredient...");
       return {
         ingredients: {
           ...state.ingredients,
@@ -20,7 +19,6 @@ const bBreducer = (state = initialState, action) => {
       };
 
     case actionTypes.REMOVE_INGREDIENT:
-      console.log("Removing ingredient...");
       return {
         ingredients: {
           ...state.ingredients,

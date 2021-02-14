@@ -9,7 +9,8 @@ import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../../src/hoc/withErrorHandler/withErrorHandler";
 
-import * as actionTypes from "../../store/actions/actionTypes";
+// import * as actionTypes from "../../store/actions/actionTypes";
+import * as actions from "../../store/actions/actionIndex";
 
 import axios from "../../axios-orders";
 
@@ -21,7 +22,6 @@ class BurgerBuilder extends Component {
   };
 
   // componentDidMount() {
-  //   console.log(this.props);
   //   axios
   //     .get(
   //       "https://react-my-burger-b77e3-default-rtdb.firebaseio.com/ingredients.json"
@@ -35,7 +35,6 @@ class BurgerBuilder extends Component {
   // }
 
   checkOut = () => {
-    console.log("Checking Out...");
     this.setState({ checkingOut: true });
   };
 
@@ -78,7 +77,7 @@ class BurgerBuilder extends Component {
           <Burger ingredients={this.props.ingredients} />
           <BuildControls
             addIngredient={this.props.onAddIngredient}
-            removeIngredient={this.props.onRmoveIngredient}
+            removeIngredient={this.props.onRemoveIngredient}
             disabled={disabledInfo}
             price={this.props.totalPrice}
             purchaseable={this.updatePurchaseState(this.props.ingredients)}
@@ -116,17 +115,17 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    ingredients: state.burgerBuilder.ingredients,
+    totalPrice: state.burgerBuilder.totalPrice,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onAddIngredient: (ingredient) =>
-      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredient: ingredient }),
+      dispatch(actions.addIngredient(ingredient)),
     onRemoveIngredient: (ingredient) =>
-      dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredient: ingredient }),
+      dispatch(actions.removeIngredient(ingredient)),
   };
 };
 

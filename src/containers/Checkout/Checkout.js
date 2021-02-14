@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";import { connect } from "react-redux"
-;
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
 
@@ -14,6 +14,7 @@ class Checkout extends Component {
   };
 
   render() {
+    console.log("Checkout...Props: ", this.props);
     return (
       <div>
         <CheckoutSummary
@@ -32,7 +33,7 @@ class Checkout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
+    ingredients: state.burgerBuilder.ingredients,
   };
 };
 
