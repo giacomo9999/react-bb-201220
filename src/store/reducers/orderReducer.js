@@ -8,9 +8,16 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PURCHASE_BURGER_START:
+      console.log("orderReducer PURCHASE_BURGER_START...state:", state);
       return { ...state, loading: true };
     case actionTypes.PURCHASE_BURGER_SUCCESS:
       const newOrder = { ...action.orderData, id: action.orderId };
+      console.log(
+        "orderReducer PURCHASE_BURGER_START...state:",
+        state,
+        " newOrder: ",
+        newOrder
+      );
       return {
         ...state,
         loading: false,

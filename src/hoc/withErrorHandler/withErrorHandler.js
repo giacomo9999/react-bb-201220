@@ -7,20 +7,20 @@ const withErrorHandler = (WrappedComponent, axios) => {
     state = { error: null };
 
     componentDidMount() {
-      console.log("withErrorHandler here...");
+      // console.log("withErrorHandler here...");
       this.reqInterceptor = axios.interceptors.request.use((req) => {
-        console.log("withErrorHandler req interceptor here: ", req);
+        // console.log("withErrorHandler req interceptor here: ", req);
         this.setState({ error: null });
         return req;
       });
       this.resInterceptor = axios.interceptors.response.use(
         (res) => {
-          console.log("withErrorHandler res interceptor here: ", res);
+          // console.log("withErrorHandler res interceptor here: ", res);
           return res;
         },
         (error) => {
           this.setState({ error: error });
-          console.log("Handling an error -", this.state);
+          // console.log("Handling an error -", this.state);
         }
       );
     }

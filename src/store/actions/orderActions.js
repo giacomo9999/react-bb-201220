@@ -24,6 +24,7 @@ export const purchaseBurgerStart = () => {
 };
 
 export const submitOrder = (orderData) => {
+  console.log("orderActions submitOrder here...", orderData);
   return (dispatch) => {
     dispatch(purchaseBurgerStart());
     axios
