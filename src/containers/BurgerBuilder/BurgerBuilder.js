@@ -8,31 +8,19 @@ import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../../src/hoc/withErrorHandler/withErrorHandler";
+import axios from "../../axios-orders";
 
 // import * as actionTypes from "../../store/actions/actionTypes";
 import * as actions from "../../store/actions/actionIndex";
 
-import axios from "../../axios-orders";
-
 class BurgerBuilder extends Component {
   state = {
     checkingOut: false,
-    loading: false,
-    error: false,
   };
 
-  // componentDidMount() {
-  //   axios
-  //     .get(
-  //       "https://react-my-burger-b77e3-default-rtdb.firebaseio.com/ingredients.json"
-  //     )
-  //     .then((res) => {
-  //       this.setState({ ingredients: res.data });
-  //     })
-  //     .catch((err) => {
-  //       this.setState({ error: true });
-  //     });
-  // }
+  componentDidMount() {
+    this.props.onInitIngredients();
+  }
 
   checkOut = () => {
     this.setState({ checkingOut: true });
@@ -65,7 +53,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-    let burger = this.state.error ? (
+    let burger = this.props.error ? (
       <p>Ingredients Can't Be Loaded</p>
     ) : (
       <Spinner />
@@ -95,10 +83,6 @@ class BurgerBuilder extends Component {
       );
     }
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />;
-    }
-
     return (
       <Aux>
         <Modal
@@ -117,6 +101,7 @@ const mapStateToProps = (state) => {
   return {
     ingredients: state.burgerBuilder.ingredients,
     totalPrice: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
   };
 };
 
@@ -126,6 +111,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actions.addIngredient(ingredient)),
     onRemoveIngredient: (ingredient) =>
       dispatch(actions.removeIngredient(ingredient)),
+    onInitIngredients: () => dispatch(actions.initIngredients()),
   };
 };
 
