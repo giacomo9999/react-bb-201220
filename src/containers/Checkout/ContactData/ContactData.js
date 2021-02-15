@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 import Button from "../../../components/UI/Button/Button";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
 import classes from "./ContactData.module.css";
 
+import * as actions from "../../../store/actions/actionIndex";
 import axios from "../../../axios-orders";
 
 class ContactData extends Component {
@@ -60,7 +62,6 @@ class ContactData extends Component {
         valid: true,
       },
     },
-    loading: false,
     formIsValid: false,
   };
 
@@ -77,17 +78,7 @@ class ContactData extends Component {
       orderTime: Date.now(),
       orderData: formData,
     };
-    axios
-      .post("/orders.json", order)
-      .then((response) => {
-        this.setState({ loading: false });
-        this.props.history.push("/");
-        console.log(response);
-      })
-      .catch((err) => {
-        this.setState({ loading: false });
-        console.log(err);
-      });
+    this.props.onSubmitOrder(order);
   };
 
   checkValidity = (value, rules) => {
@@ -120,7 +111,6 @@ class ContactData extends Component {
     }
 
     this.setState({ orderForm: updatedOrderForm, formIsValid: formIsValid });
-    console.log("Handling change...", inputId, e.target.value);
   };
 
   render() {
@@ -151,7 +141,7 @@ class ContactData extends Component {
         </Button>
       </form>
     );
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
     return (
@@ -165,9 +155,17 @@ class ContactData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    totalPrice: state.totalPrice,
+    ingredients: state.orders.ingredients,
+    totalPrice: state.orders.totalPrice,
+    loading: state.orders.loading,
   };
 };
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => {
+  return { onSubmitOrder: (order) => dispatch(actions.submitOrder(order)) };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
