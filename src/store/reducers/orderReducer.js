@@ -3,24 +3,25 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   orders: [],
   loading: false,
+  purchaseSubmitted: false,
 };
 
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.PURCHASE_INIT:
+      console.log("orderReducer setting state.orders.purchaseSubmitted to false");
+      return { ...state, purchaseSubmitted: false };
     case actionTypes.PURCHASE_BURGER_START:
-      console.log("orderReducer PURCHASE_BURGER_START...state:", state);
       return { ...state, loading: true };
     case actionTypes.PURCHASE_BURGER_SUCCESS:
-      const newOrder = { ...action.orderData, id: action.orderId };
       console.log(
-        "orderReducer PURCHASE_BURGER_START...state:",
-        state,
-        " newOrder: ",
-        newOrder
+        "orderReducer setting state.orders.purchaseSubmitted to true"
       );
+      const newOrder = { ...action.orderData, id: action.orderId };
       return {
         ...state,
         loading: false,
+        purchaseSubmitted: true,
         orders: state.orders.concat(newOrder),
       };
     case actionTypes.PURCHASE_BURGER_FAIL:

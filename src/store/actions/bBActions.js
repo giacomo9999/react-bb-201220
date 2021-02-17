@@ -35,7 +35,6 @@ export const initIngredients = () => {
         "https://react-my-burger-b77e3-default-rtdb.firebaseio.com/ingredients.json"
       )
       .then((res) => {
-        console.log("initIngredients reponse...", res);
         dispatch(setIngredients(res.data));
       })
       .catch((err) => {
