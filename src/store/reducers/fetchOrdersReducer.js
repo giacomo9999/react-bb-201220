@@ -8,7 +8,7 @@ const fetchOrdersReducer = (state = initialState, action) => {
       return { ...state, error: true, loading: false };
     case actionTypes.FETCH_ORDERS_START:
       return { ...state, loading: true };
-    case actionTypes.SET_ORDERS:
+    case actionTypes.FETCH_ORDERS_SUCCESS:
       console.log("Reducer setting orders...");
       return { ...state, orders: action.orders, loading: false, error: false };
     default:

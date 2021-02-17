@@ -14,14 +14,14 @@ class Orders extends Component {
 
   render() {
     let ordersDisplay;
-    if (Object.keys(this.props.orders).length > 0) {
+    if (this.props.orders.length > 0) {
       ordersDisplay = (
         <div>
-          {Object.keys(this.props.orders).map((order) => (
+          {this.props.orders.map((order) => (
             <Order
-              key={order}
-              ingredients={this.props.orders[order].ingredients}
-              price={this.props.orders[order].price}
+              key={order.id}
+              ingredients={order.ingredients}
+              price={order.price}
             />
           ))}
         </div>

@@ -15,8 +15,8 @@ export const fetchOrdersFailed = (err) => {
   };
 };
 
-export const setOrders = (orders) => {
-  return { type: actionTypes.SET_ORDERS, orders: orders };
+export const fetchOrdersSuccess = (data) => {
+  return { type: actionTypes.FETCH_ORDERS_SUCCESS, orders: data };
 };
 
 export const initOrders = () => {
@@ -24,7 +24,13 @@ export const initOrders = () => {
     dispatch(fetchOrdersStart());
     axios
       .get("orders.json")
-      .then((res) => dispatch(setOrders(res.data)))
+      .then((res) => {
+        const fetchedOrders = [];
+        for (let key in res.data) {
+          fetchedOrders.push({ ...res.data[key], id: key });
+        }
+        dispatch(fetchOrdersSuccess(fetchedOrders));
+      })
       .catch((err) => dispatch(fetchOrdersFailed(err)));
   };
 };
