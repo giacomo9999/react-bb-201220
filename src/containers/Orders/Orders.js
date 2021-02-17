@@ -2,47 +2,45 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "../../axios-orders";
 import Order from "../../components/Order/Order";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
 
 import * as actions from "../../store/actions/actionIndex";
 
 class Orders extends Component {
-  // state = { orders: [], loading: true };
   componentDidMount() {
     this.props.onInitOrders();
-    // axios
-    //   .get("orders.json")
-    //   .then((res) => {
-    //     const fetchedOrders = [];
-    //     for (let key in res.data) {
-    //       fetchedOrders.push({ ...res.data[key], id: key });
-    //     }
-    //     console.log("Fetched orders: ", fetchedOrders);
-    //     this.setState({ loading: false, orders: fetchedOrders });
-    //   })
-    //   .catch((err) => {
-    //     console.log("Orders caught an error: ", err);
-    //     this.setState({ loading: false });
-    //   });
   }
+
   render() {
-    console.log(this.props.orders);
-    return (
-      <div>
-        {/* {this.props.orders.map((order) => (
-          <Order
-            key={order.id}
-            ingredients={order.ingredients}
-            price={order.price}
-          />
-        ))} */}
-      </div>
-    );
+    let ordersDisplay;
+    if (Object.keys(this.props.orders).length > 0) {
+      ordersDisplay = (
+        <div>
+          {Object.keys(this.props.orders).map((order) => (
+            <Order
+              key={order}
+              ingredients={this.props.orders[order].ingredients}
+              price={this.props.orders[order].price}
+            />
+          ))}
+        </div>
+      );
+    } else if (this.props.error) {
+      ordersDisplay = <p>Orders Can't Be Loaded</p>;
+    } else {
+      ordersDisplay = <Spinner />;
+    }
+    return ordersDisplay;
   }
 }
 
 const mapStateToProps = (state) => {
-  return { orders: state.fetchOrders.orders, error: state.fetchOrders.error };
+  return {
+    orders: state.fetchOrders.orders,
+    loading: state.fetchOrders.loading,
+    error: state.fetchOrders.error,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
