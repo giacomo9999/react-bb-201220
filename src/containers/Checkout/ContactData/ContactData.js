@@ -78,6 +78,7 @@ class ContactData extends Component {
       orderTime: Date.now(),
       orderData: formData,
     };
+    
     this.props.onSubmitOrder(order);
   };
 

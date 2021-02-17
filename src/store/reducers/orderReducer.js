@@ -9,14 +9,10 @@ const initialState = {
 const orderReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PURCHASE_INIT:
-      console.log("orderReducer setting state.orders.purchaseSubmitted to false");
       return { ...state, purchaseSubmitted: false };
     case actionTypes.PURCHASE_BURGER_START:
       return { ...state, loading: true };
     case actionTypes.PURCHASE_BURGER_SUCCESS:
-      console.log(
-        "orderReducer setting state.orders.purchaseSubmitted to true"
-      );
       const newOrder = { ...action.orderData, id: action.orderId };
       return {
         ...state,

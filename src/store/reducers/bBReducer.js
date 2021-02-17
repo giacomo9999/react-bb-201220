@@ -3,7 +3,7 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
   ingredients: null,
   error: false,
-  totalPrice: 8,
+  // totalPrice: 8,
 };
 
 const INGREDIENT_PRICES = { salad: 1, bacon: 1.5, meat: 2, cheese: 1.5 };
